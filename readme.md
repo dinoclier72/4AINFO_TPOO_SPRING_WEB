@@ -1,5 +1,5 @@
 # tp poo
-explication des dépendences
+## quesion 5: explication des dépendences
 # Spring Web
 spring web permet de mettre en place des applications de type http et le support de transfert de fichier, le tout concentré à distance
 # JPA
@@ -29,9 +29,9 @@ c'est un moteur pour les application web ou standalone, c'est surtout utilisé p
     @RequestParam(name="name", required=false, defaultValue="World")
    ```
    demande la variable name dans l'URL remplacer "name" par "greetName" nécessitera ?greetName=yourname
-## question 17
+## question 17: qu'il y a t-il de nouveau dans la console h2 depuis l'ajout de la classe addresse
 On remarque que une table addresse a été ajouté dans la console
-## question 18
+## question 18: expliquez l'aparition de la table
 ```java
 @Entity
 ```
