@@ -1,0 +1,11 @@
+<!DOCTYPE HTML> 
+<html xmlns:th="http://www.thymeleaf.org"> 
+<head> 
+<title>Meteo</title> 
+<meta http-equiv="Content-Type" content="text/html ; charset=UTF-8" />
+</head> 
+<body> 
+<nav th:insert="~{navbar.html::navbar}">  </nav>
+<p th:text="'votre addresse:' + ${AddresseTemplate} + ' !'" />
+</body>  
+</html>
