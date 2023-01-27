@@ -6,13 +6,13 @@
 </head> 
 <body> 
 <nav th:insert="~{navbar.html::navbar}">  </nav>
-<form action="/meteo" method="post"> 
-    <div> 
+<form action="/meteo" method="post">
+    <div class="col-auto">
     <label for="address">Please input your adress :</label>  
     <input name="address" id="address">  
     </div> 
-    <div> 
-    <button>Get the weather at the given address !</button> 
+    <div class="col-auto">
+    <button class="btn btn-primary mb-3">Get the weather at the given address !</button>
     </div>  
 </form >
 </body>  

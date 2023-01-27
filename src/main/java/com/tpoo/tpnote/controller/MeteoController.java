@@ -1,13 +1,11 @@
 package com.tpoo.tpnote.controller;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -25,9 +23,17 @@ import jakarta.persistence.criteria.Root;
 public class MeteoController {
 	@PostMapping("/meteo")
 	public String showMeteo(Model model, String address){
+		model.addAttribute("AddresseTemplate", address);
 		String token;
 		BufferedReader rd;
+		List<String> CorespondanceMeteo = new ArrayList<String>();
 		try {
+			rd = new BufferedReader(new InputStreamReader(new FileInputStream("code_temps.csv"), StandardCharsets.UTF_8));
+			String ligne = rd.readLine();
+			while((ligne = rd.readLine()) != null){
+				String[] data = ligne.split(",");
+				CorespondanceMeteo.add(data[1]);
+			}
 			rd = new BufferedReader(new FileReader(new File("token.txt")));
 			token = rd.readLine();
 		} catch (IOException e) {
@@ -35,19 +41,16 @@ public class MeteoController {
 			e.printStackTrace();
 			token = "";
 		}
-		
-		SimpleClientHttpRequestFactory clientHttpsReq = new SimpleClientHttpRequestFactory();
-		Proxy proxy = new Proxy(Proxy.Type.HTTP,new InetSocketAddress("proxy.univ-lemans.fr", 3128));
-		clientHttpsReq.setProxy(proxy);
-		RestTemplate restTemplate = new RestTemplate(clientHttpsReq);
+		RestTemplate restTemplate = new RestTemplate();
     	String addressCall = address.replace(" ", "+");
 		JsonRoot root = restTemplate.getForObject("https://api-adresse.data.gouv.fr/search/?q="+addressCall, JsonRoot.class);
 		ArrayList<Double> coordinates = root.getFeatures().get(0).getGeometry().getCoordinates();
-    	model.addAttribute("AddresseTemplate", ""+coordinates.get(1)+","+coordinates.get(0));
+		model.addAttribute("CoordonnesTemplate", ""+coordinates.get(1)+","+coordinates.get(0));
     	
     	MeteoJsonRoot meteoResponse = restTemplate.getForObject("https://api.meteo-concept.com/api/forecast/daily/0?token="+token+"&latlng="+coordinates.get(1)+","+coordinates.get(0), MeteoJsonRoot.class);
-    	//coordinate (1,0) pour les latlng
-    	//https://api.meteo-concept.com/api/forecast/daily/0?token=TOKEN ICI BATAR &latlng=X,X
+
+		model.addAttribute("TemperatureTemplate", "de "+meteoResponse.getForecast().getTmin()+"°C à "+meteoResponse.getForecast().getTmax()+"°C");
+		model.addAttribute("MeteoTemplate", CorespondanceMeteo.get(meteoResponse.getForecast().getWeather()));
 		return "meteo";
 	}
 }

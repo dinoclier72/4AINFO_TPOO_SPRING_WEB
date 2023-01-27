@@ -1,4 +1,4 @@
-# tp poo
+# TP Poo Spring Web
 ## quesion 5: explication des dépendences
 # Spring Web
 spring web permet de mettre en place des applications de type http et le support de transfert de fichier, le tout concentré à distance
@@ -72,3 +72,26 @@ ensuite il suffit de rajouter le lien vers le css de bootstrap dans le fragmene 
 ```html
 <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 ```
+# TP4
+## Mettre en place l'API meteo
+il faut placer un fichier token.txt dans la racine du dossier et y inscrire votre token, le programme le récupérera pour vous  
+Allez ici pour obtenir votre propre token : https://api.meteo-concept.com/
+## question 6
+- Faut-il une clé API pour appeler MeteoConcept ?  
+Meteo concept est une APi qui comprend des limites d'appel et des fonctions réservées aux utlisateurs prenium, une clé API existe donc pour séparer ceux qui ont payé les fonctions et les utilisateurs gratuits
+- Quelle URL appeler ?  
+  https://api.meteo-concept.com/api/
+- Quelle méthode HTTP utiliser ?
+l'API utilise uen méthode GET pour transférer les données
+- Comment passer les paramètres d'appels ?  
+on passe les paramètre par une méthode get (?argument = valeur ) exemple:
+````html
+https://api.meteo-concept.com/api/forecast/daily/0?token=Z&latlng=X,Y
+````
+- Où est l'information dont j'ai besoin dans la réponse :
+- Pour afficher la température du lieu visé par les coordonnées GPS
+Il faut regarder le champ tmax et tmin dans le fichier Json ou xml de resultat
+- Pour afficher la prévision de météo du lieu visé par les coordonnées GPS
+Il faut regarder le paramètre weather, qui donne un code lié à la météo du lieu
+
+https://github.com/dinoclier72/4AINFO_TPOO_SPRING_WEB

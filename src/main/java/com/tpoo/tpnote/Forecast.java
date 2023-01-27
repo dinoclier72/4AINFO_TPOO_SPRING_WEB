@@ -1,5 +1,8 @@
 package com.tpoo.tpnote; 
-import com.fasterxml.jackson.annotation.JsonProperty; 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.sql.Date;
+
 public class Forecast{
     @JsonProperty("insee") 
     public String getInsee() { 

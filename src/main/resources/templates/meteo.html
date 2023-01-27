@@ -6,6 +6,9 @@
 </head> 
 <body> 
 <nav th:insert="~{navbar.html::navbar}">  </nav>
-<p th:text="'votre addresse:' + ${AddresseTemplate} + ' !'" />
+<p th:text="'votre addresse: ' + ${AddresseTemplate}" />
+<p th:text="'vos coordonnées: ' + ${CoordonnesTemplate}" />
+<p th:text="'température estimée: ' + ${TemperatureTemplate}" />
+<p th:text="'la météo: ' + ${MeteoTemplate}" />
 </body>  
 </html>
